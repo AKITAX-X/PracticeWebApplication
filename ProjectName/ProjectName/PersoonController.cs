@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ClassLibrary1;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,57 @@ namespace ProjectName
     [ApiController]
     public class PersoonController : ControllerBase
     {
+        private PijplijnContext _db; //verbinding met database wordt hier gedaan.
+        public PersoonController(PijplijnContext db) //wat gebeurd hier vragen/
+        {
+            _db = db;
+        }
+
+
         // GET: api/<PersoonController>
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+
+            DateTime Date1 = DateTime.Now;
+            string Text = "Today is: ";
+            string Time = "Wednesday 11/03/2021";
+
+            return new string[] { Text, Time };
+        }
+
+        // GET api/<PersoonController>/5
+        [HttpGet("iets")]
+        public string ietsMethode(int id)
+        {
+            Person student1 = new Person();
+            student1.Naam = "Ali";
+            student1.Leeftijd = 24;
+            student1.Studiejaar = 1;
+            student1.Woonplaats = "Amsterdam";
+
+            _db.Add(student1);
+            _db.SaveChanges();
+
+            return "iets"; //wat return ik hier? is het niet alleen save?
+
+        }
+
+        // GET api/<PersoonController>/5
+        [HttpGet("iets/{denaam}")]
+        public Person Naamopslaaninlink(string denaam)
+        {
+            Person student1 = new Person();
+            student1.Naam = denaam;
+            student1.Leeftijd = 24;
+            student1.Studiejaar = 1;
+            student1.Woonplaats = "Amsterdam";
+
+            _db.Add(student1);
+            _db.SaveChanges();
+
+            return student1; //wat return ik hier? is het niet alleen save?
+
         }
 
         // GET api/<PersoonController>/5
