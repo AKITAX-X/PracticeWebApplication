@@ -1,5 +1,6 @@
 ﻿using ClassLibrary1;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,6 +65,13 @@ namespace ProjectName
 
             return student1; //wat return ik hier? is het niet alleen save?
 
+        }
+
+        // GET api/<PersoonController>/5
+        [HttpGet("LijstPersonen")]
+        public DbSet<Person> namenVerkrijgen()
+        {
+            return _db.Personindedb;
         }
 
         // GET api/<PersoonController>/5
